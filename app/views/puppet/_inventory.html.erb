@@ -1,0 +1,71 @@
+<a class="popupClose">x</a>
+
+<h1 class="popupHeader"><%=@inventory[:sender]%></h1>
+
+<div id="tabs" class="ui-widget-content">
+    <ul>
+        <li><a href="#tabs-1">Classes</a></li>
+        <li><a href="#tabs-2">Agents</a></li>
+        <li><a href="#tabs-3">Facts</a></li>
+    </ul>
+    <div id="tabs-1">
+        <div class="puppet_class">
+            <% c_index = 0 %>
+            <% class_stack = [] %>
+            <% @inventory[:data][:classes] = @inventory[:data][:classes].sort %>
+            <table style="width:100%">
+                <% while @inventory[:data][:classes].size > c_index +1 %>
+                    <% class_stack << @inventory[:data][:classes][c_index] if class_stack.size == 0%>
+                    <% c_index = c_index + 1 %>
+                    <% unless @inventory[:data][:classes][c_index].match(class_stack[0].gsub(/::.*/, ""))%>
+                        <tr class="<%= cycle("even", "odd")%>">
+                        <% if class_stack.size == 1 %>
+                            <td><%= class_stack[0] %></td>
+                        <% else %>
+                            <td><a title='<%= class_stack.join(" ")%>'><%=class_stack[0]%>...</a></td>
+                        <% end %>
+                        </tr>
+                        <% class_stack.clear %>
+                    <% else %>
+                        <% class_stack << @inventory[:data][:classes][c_index] %>
+                    <% end %>
+                <% end %>
+            </table>
+        </div>
+    </div>
+    <div id="tabs-2">
+        <div class="agent">
+            <table style="width:100%">
+                <% @inventory[:data][:agents].sort.each_with_index do |agent, i| %>
+                    <tr class="<%= cycle("even","odd")%>">
+                        <td><%= agent %></td>
+                    </tr>
+                <% end %>
+            </table>
+        </div>
+    </div>
+    <div id="tabs-3">
+        <table id="factTable" style="width:100%text-align:left;">
+            <th>Fact</th>
+            <th>Value</th>
+        <% @inventory[:data][:facts].sort.each do |fact| %>
+            <% cut = fact[1].slice(50..fact.size) %>
+            <tr class="<%=cycle("even", "odd")%>">
+            <% unless cut.nil? %>
+                <% new_fact = fact[1].slice(0..50) %>
+                <td><%= fact[0]%></td><td><a title='<%= fact%>'> <%= new_fact %><div style="font-size:0.75em;">..more</div> </a></td>
+            <% else %>
+                <td><%= fact[0]%></td><td><%= fact[1] %></td>
+            <% end %>
+            <tr>
+        <% end %>
+        </table>
+    </div>
+
+</div>
+
+<!-- This fixes losing css when ajax calls are made --!>
+<%= javascript_tag "setTabs()" %>
+
+
+

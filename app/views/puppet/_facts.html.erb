@@ -1,0 +1,9 @@
+<% @facts.each do |fact|%>
+    <% cut = fact.slice(50..fact.size) %>
+    <% unless cut.nil? %>
+        <% new_fact = fact.slice(1..50) %>
+        <a title='<%= fact%>'> <%= new_fact %>... </a><br>
+    <% else %>
+        <%= label_tag fact, fact%> <br>
+    <% end %>
+<% end %>

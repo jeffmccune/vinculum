@@ -1,0 +1,14 @@
+<a class="popupClose">x</a>
+
+<h1 class="popupHeader">Disable Puppet on <%=@disable[:sender]%></h1>
+
+<div class="endis">
+    <% if @disable[:statuscode] == 0 %>
+        Puppet successfully disabled
+    <% else %>
+        Puppet could not be disabled.  
+        <div style="color:red;">
+            <%= @disable[:statusmsg]%>
+        </div>
+    <% end %>
+</div>

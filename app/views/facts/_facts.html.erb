@@ -1,0 +1,11 @@
+<h1 class="popupHeader"> Results for fact search " <%= @search_fact %> " </h1>
+<table id="fact-results">
+    <th><%= @search_fact.capitalize %></th>
+    <th>Nodes with this fact</th>
+    <% @facts.each do |fact| %>
+        <tr>
+            <td bgcolor="#F2F2F2"><%= fact[0] %></td>
+            <td><%= fact[1].size %></td>
+        </tr>
+    <% end %>
+</table>

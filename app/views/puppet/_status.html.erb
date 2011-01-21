@@ -1,0 +1,34 @@
+<a class="popupClose">x</a>
+
+<h1 class="popupHeader">Puppet Status - <%=@status[:sender]%></h1>
+
+<div id="statusTable">
+<table style="width:100%;text-align:left;font-size:1.2em">
+    <thead>
+        <tr style="background-color:#F2F2F2;">
+            <th>Status action output</th>
+            <th>Run status </th>
+            <th>Last run</th>
+        </tr>
+    </thead>
+    <tr>
+        <td> <%= @status[:data][:output] %> </td>
+        <td>
+            <% if @status[:data][:running] == 0%>
+                Not currently running
+            <% else %>
+                Running
+            <% end %>
+        </td>
+        <td>
+            <% unless @status[:data][:lastrun] == 0 %>
+                <%= Time.at(@status[:data][:lastrun]) %>
+            <% else %>
+                Never
+            <% end %>
+        </td>
+    </tr>
+
+</table>
+</div>
+

@@ -1,0 +1,15 @@
+<h1 class="popupHeader"> Peermap</h1> 
+
+<% @peers.keys.sort.each do |server| %>
+    <h1 class="popupHeader"><%= server %> - Average ping : <%= "%.2fms" % (@peers[server][:pings].inject{ |sum, el| sum + el} / @peers[server][:pings].size * 1000)%></h3>
+    <table class="resultTable">
+        <tr>
+            <th>Node</th>
+        </tr>
+        <% @peers[server][:hosts].sort.each do |host| %>
+            <tr>
+                <td><%= host%></td>
+            </tr>
+        <% end %>
+    </table>
+<% end %>

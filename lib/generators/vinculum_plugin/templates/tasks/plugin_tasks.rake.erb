@@ -1,0 +1,19 @@
+namespace :<%=plugin_name.to_sym %> do
+    desc "Sync plugin"
+    task :sync do
+       system "rsync -ruv vendor/plugins/vinculum_<%= plugin_name %>/lib/app/views/* app/views/<%=plugin_name%>/" 
+       system "rsync -ruv vendor/plugins/vinculum_<%= plugin_name %>/lib/app/controllers/* app/controllers" 
+       system "rsync -ruv vendor/plugins/vinculum_<%= plugin_name %>/lib/public/javascript/* public/javascripts/" 
+       system "rsync -ruv vendor/plugins/vinculum_<%= plugin_name %>/lib/public/stylesheets/* public/stylesheets/" 
+    end
+    
+    desc "Delete plugin"
+    task :remove do
+        system "rm -rf app/views/<%= plugin_name%>"
+        system "rm app/controllers/<%= plugin_name%>_controller.rb"
+        system "rm public/javascripts/<%= plugin_name %>.js"
+        system "rm public/stylesheets/<%= plugin_name %>.css"
+    end
+
+
+end

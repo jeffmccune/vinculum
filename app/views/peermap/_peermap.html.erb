@@ -1,0 +1,24 @@
+<h1 class="popupHeader"> Peermap</h1> 
+<% @peers.keys.sort.each do |server| %>
+<table class="peermap-table">
+    <tr>
+        <td bgcolor="#F2F2F2">Host</td><td><%= server %></td>
+    </tr> 
+    <tr>
+        <td bgcolor="#F2F2F2">Total nodes</td><td><%= @peers[server][:hosts].size%></td> 
+    </tr>
+    <tr>
+        <td bgcolor="#F2F2F2">Average ping</td><td><%= "%.2fms" % (@peers[server][:pings].inject{ |sum, el| sum + el} / @peers[server][:pings].size * 1000)%></td>
+    </tr>
+</table>
+    <table class="resultTable node-table">
+        <tr>
+            <th>Node</th>
+        </tr>
+        <% @peers[server][:hosts].sort.each do |host| %>
+            <tr class="<%= cycle("odd", "even") %>">
+                <td>+ <%= host%></td>
+            </tr>
+        <% end %>
+    </table>
+<% end %>

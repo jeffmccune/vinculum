@@ -1,0 +1,14 @@
+<a class="popupClose">x</a>
+
+<h1 class="popupHeader"> Enable Puppet on <%=@enable[:sender]%></h1>
+
+<div class="endis">
+    <% if @enable[:statuscode] == 0 %>
+        Puppet successfully enabled.
+    <% else %>
+        Puppet could not be enabled. 
+        <div style="color:red;">
+            <%= @enable[:statusmsg]%>
+        </div>
+    <% end %>
+</div>

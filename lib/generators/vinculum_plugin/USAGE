@@ -1,0 +1,4 @@
+Generate a skeleton for a Puppet Commander Gui plugin.
+
+Usage:
+	script/generate pcg_plugin [pluginname]

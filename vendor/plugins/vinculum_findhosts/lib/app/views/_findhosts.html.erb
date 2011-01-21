@@ -1,0 +1,22 @@
+<h1 class="popupHeader"> Found <%= @results.size %> hosts </h1>
+<table class="findhost-results" style="font-weight:bold;">
+    <% unless @fact == "" %>
+        <tr><td bgcolor="#F2F2F2">Fact filter</td><td><%= @fact %></td></tr>
+    <% end %>
+    <% unless @pclass == "" %>
+        <tr><td bgcolor="#F2F2F2">Class filter</td><td><%= @pclass %></td></tr>
+    <% end %>
+    <% unless @identity== "" %>
+        <tr><td bgcolor="#F2F2F2">Identity filter</td><td><%= @identity %></td></tr>
+    <% end %>
+</table>
+<br>
+
+<table class="findhost-results">
+    <% @results.each do |result|%>
+        <tr class="<%= cycle("odd", "even") %>">
+            <td><%= link_to_remote result, {:url=>{:controller => :puppet, :action => :get_inventory , :fqdn => result}}, :class => "button fg-button ui-state-default ui-corner-all" %></td>
+        </tr>
+    <% end %>
+</table>
+

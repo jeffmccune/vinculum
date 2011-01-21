@@ -23,7 +23,8 @@
 	line-height:14px;
 	right:3px;
 	top:3px;
-	color:#000000;
+	color:#004276;
+	background-color:#F2F2F2;
 	font-weight:700;
 	display:block;
 }
@@ -144,4 +145,8 @@
 }
 .input-table{
 	font-size:0.5em;
+}
+.cached-warning{
+	font-size:0.5em;
+	color:red;
 }

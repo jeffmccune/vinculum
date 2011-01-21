@@ -21,8 +21,34 @@ class PuppetController < ApplicationController
     def get_inventory
         agent = rpcclient("rpcutil")
         @inventory = agent.custom_request("inventory", {}, params[:fqdn], {"identity" => params[:fqdn]})
-        @inventory = @inventory[0].results
+        @is_cached = false
+        unless @inventory.empty?
+            @inventory = @inventory[0].results
+        else
+            @is_cached = true
+            @inventory={:data => {:agents => nil,
+                                  :classes => nil,
+                                  :facts => nil
+                                  },
+                        :sender => nil
 
+                        }
+            db = Mongo::Connection.new.db("puppet")
+            db["nodes"].find({"fqdn" => params[:fqdn]}).each do |node|
+                node.each do |symme|
+                    if symme[0] == "agentlist"
+                        @inventory[:data][:agents] = symme[1]
+                    elsif symme[0] == "classes"
+                        @inventory[:data][:classes] = symme[1]
+                    elsif symme[0] == "facts"
+                        @inventory[:data][:facts] = symme[1]
+                     end
+                end
+            end
+        end
+        @inventory[:sender] = params[:fqdn]
+
+        agent.disconnect
         respond_to do |format|
             format.js{
                 render :update do |page|
@@ -72,29 +98,10 @@ class PuppetController < ApplicationController
             format.js{
                 render :update do |page|
                     page.replace_html("popupContent", :partial => "disable")
-                    page << "openPopup();"
+                    page << "openPopup('popupWindow');"
                 end
             }
         end
     end
 
-    def show_facts #depricate and remove
-        @facts = []
-        db = Mongo::Connection.new.db("puppet")
-        db["nodes"].find({"fqdn" => params[:fqdn]}, :fields => ["facts"]).each do |node|
-            node["facts"].each do |fact, value|
-                 @facts << "#{fact} - #{value}"
-            end
-        end
-
-        respond_to do |format|
-            format.js {
-                render :update do |page|
-                    page.replace_html("popupContent", :partial => "facts")
-                    page << "openPopup();"
-                end
-
-            }
-        end
-    end
 end

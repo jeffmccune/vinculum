@@ -1,6 +1,11 @@
 <a class="popupClose">x</a>
 
 <h1 class="popupHeader"><%=@inventory[:sender]%></h1>
+<% if @is_cached == true %>
+    <div class="cached-warning">
+        Warning, the node <%= @inventory[:sender] %> did not respond to the inventory request Loading cached data.
+    </div>
+<% end %>
 
 <div id="tabs" class="ui-widget-content">
     <ul>

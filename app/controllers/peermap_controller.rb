@@ -18,8 +18,7 @@ class PeermapController < ApplicationController
            @peers[desthost][:pings] << Time.now.to_f - starttime
         end
 
-        RAILS_DEFAULT_LOGGER.debug @peers.pretty_inspect
-
+       client.disconnect
        render :update do |page|
            page.replace_html("popupContent", :partial => "peermap")
            page << "openPopup('popupWindow');"

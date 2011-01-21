@@ -43,6 +43,12 @@ function openPopup(popup){
     		jQuery(".popupClose").click(function(){
     			closePopup();
 	    	});
+		jQuery(".popupClose").mouseover(function(){
+			jQuery(".popupClose").css({"background-color" : "#004276", "color":"#F2F2F2", "cursor" : "pointer" });
+
+		}).mouseout(function(){
+			jQuery(".popupClose").css({"background-color" : "#F2F2F2", "color":"#004276"});
+		});
 	}
 
 }

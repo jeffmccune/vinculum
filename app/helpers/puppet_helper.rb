@@ -6,7 +6,6 @@ module PuppetHelper
         plugins = Dir.glob("vendor/plugins/vinculum_**")
         results = []
         plugins.each {|plugin| results << plugin.gsub(/.*vinculum_/, "")}
-        RAILS_DEFAULT_LOGGER.debug results.pretty_inspect
         return results
     end
 

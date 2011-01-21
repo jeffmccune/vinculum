@@ -2,7 +2,7 @@
     Filter parameters
 </div>
 
-<table id="input-table">
+<table class="input-table">
     <tr>
         <td>Filter by fact</td>
         <td><%= text_field_tag "fact", "",:size=>20, :id=>"fact"%></td>
@@ -19,13 +19,13 @@
 </table>
 
 <div class="input-footer">
-    - Fact like country=uk<br>
+    - Fact like country=uk or country=/u./<br>
     - Multiple Facts like country=uk location=hetzner<br>
-    - Class like /dev_server/ <br>
+    - Class like /dev_server/ or hosts<br>
 </div>
 
 <div class="input-buttons">
     <%= button_to_remote "Submit", {:url=>{:controller => :findhosts, :action => :do_findhosts}, 
-        :with => "'fact=' + encodeURIComponent(jQuery('#fact').val()) + '&pclass=' + encodeURIComponent(jQuery('#pclass').val()) + '&identity=' + encodeURIComponent(jQuery('#identity').val()) "}, :class => "button fg-button ui-state-default ui-corner-all input-button" %></td>
-<%= button_to_function "Cancel", "closePopup();", :class => "button fg-button ui-state-default ui-corner-all input-button" %></td>
+        :with => "'fact=' + encodeURIComponent(jQuery('#fact').val()) + '&pclass=' + encodeURIComponent(jQuery('#pclass').val()) + '&identity=' + encodeURIComponent(jQuery('#identity').val()) "}, :class => "button fg-button ui-state-default ui-corner-all input-button" %>
+<%= button_to_function "Cancel", "closePopup();", :class => "button fg-button ui-state-default ui-corner-all input-button" %>
 </div>

@@ -1,4 +1,7 @@
-Generate a skeleton for a Puppet Commander Gui plugin.
+Generate a skeleton for a Vinculum plugin.
 
 Usage:
-	script/generate pcg_plugin [pluginname]
+	Without	input: 
+		script/generate vinculum_plugin [pluginname]
+	With input:
+		script/generate vinculum_plugin [pluginname] :with_input

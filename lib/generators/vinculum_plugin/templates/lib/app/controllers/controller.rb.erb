@@ -1,5 +1,12 @@
 class <%="#{plugin_name}_controller".camelize%> < ApplicationController
     def get_<%=plugin_name%>
-        #Initial controller call for plugin. Further ajax chains can be built 
+        #Initial controller call for action. Entry point for actions requiring input.
+
+        render :update do |page|
+            page <<"spin();"
+            page.replace_html("popupContent", :partial => "<%= plugin_name %>")
+            page << "openPopup('popupWindow');"
+        end
     end
+    
 end

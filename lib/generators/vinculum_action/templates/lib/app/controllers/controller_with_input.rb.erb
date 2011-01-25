@@ -1,0 +1,22 @@
+class <%="#{action_name}_controller".camelize%> < ApplicationController
+    def get_<%=action_name%>
+        #Initial controller call for action. Entry point for actions requiring input.
+        render :update do |page|
+            page <<"spin();"
+            page.replace_html("inputContent", :partial => "input")
+            page << "openPopup('inputWindow')"
+        end
+    end
+    
+    def do_<%=action_name%>
+        #Main execution point of action. Further ajax chains can be built from here.
+        render :update do |page|
+            page.replace_html("popupContent", :partial =>"<%=action_name%>")
+            page << "spin();"
+            page << "closePopup();"
+            page << "openPopup('popupWindow');"
+        end
+        
+    end
+
+end

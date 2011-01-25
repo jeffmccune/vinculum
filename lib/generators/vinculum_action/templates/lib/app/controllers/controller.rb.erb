@@ -1,0 +1,12 @@
+class <%="#{action_name}_controller".camelize%> < ApplicationController
+    def get_<%=action_name%>
+        #Initial controller call for action. Entry point for actions requiring input.
+
+        render :update do |page|
+            page <<"spin();"
+            page.replace_html("popupContent", :partial => "<%= action_name %>")
+            page << "openPopup('popupWindow');"
+        end
+    end
+    
+end

@@ -1,0 +1,9 @@
+Generate a skeleton for a Vinculum Action.
+
+Usage:
+	Without input:
+		script/generate vinculum_action [actionname]
+	
+	With input:
+		script/generate vinculum_action [actionname] :with_input
+

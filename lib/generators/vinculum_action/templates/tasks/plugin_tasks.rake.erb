@@ -1,0 +1,19 @@
+namespace :<%=action_name.to_sym %> do
+    desc "Sync action"
+    task :sync do
+       system "rsync -ruv vendor/plugins/vinculum_action_<%= action_name %>/lib/app/views/* app/views/<%=action_name%>/" 
+       system "rsync -ruv vendor/plugins/vinculum_action_<%= action_name %>/lib/app/controllers/* app/controllers" 
+       system "rsync -ruv vendor/plugins/vinculum_action_<%= action_name %>/lib/public/javascript/* public/javascripts/" 
+       system "rsync -ruv vendor/plugins/vinculum_action_<%= action_name %>/lib/public/stylesheets/* public/stylesheets/" 
+    end
+    
+    desc "Delete action"
+    task :remove do
+        system "rm -rf app/views/actions/<%= action_name%>"
+        system "rm app/controllers/<%= action_name%>_controller.rb"
+        system "rm public/javascripts/<%= action_name %>.js"
+        system "rm public/stylesheets/<%= action_name %>.css"
+    end
+
+
+end

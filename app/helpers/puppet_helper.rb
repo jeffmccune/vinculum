@@ -3,9 +3,16 @@ module PuppetHelper
     require 'pp'
 
     def get_plugins
-        plugins = Dir.glob("vendor/plugins/vinculum_**")
+        plugins = Dir.glob("vendor/plugins/vinculum_[!action]**")
         results = []
         plugins.each {|plugin| results << plugin.gsub(/.*vinculum_/, "")}
+        return results
+    end
+
+    def get_actions
+        actions = Dir.glob("vendor/plugins/vinculum_action**")
+        results = []
+        actions.each {|action| results << action.gsub(/.*vinculum_action_/, "")}
         return results
     end
 

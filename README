@@ -1,8 +1,9 @@
 Vinculum
-Version 0.1
+Version 0.2
 
 Rails based command and control framework for the Marionette Collective
 
 #Changelog
+- 0.2  	Added concept of action plugin with generator. 2nd Round of minor visual bugfixes.
 - 0.1 	Demonstrate basic control over puppet using MCollective and implemented gui's for MCollective's facts, 
 	peermap and find-hosts clients.

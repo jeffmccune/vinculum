@@ -1,6 +1,7 @@
 class FactsController < ApplicationController
     def get_facts
         render :update do |page|
+            page << "spin();"
             page.replace_html("inputContent", :partial => "input")
             page << "openPopup('inputWindow')"
         end
@@ -19,6 +20,7 @@ class FactsController < ApplicationController
         client.disconnect
         render :update do |page|
             page.replace_html("popupContent", :partial => "facts")
+            page << "spin();"
             page << "closePopup()"
             page << "openPopup('popupWindow')"
         end

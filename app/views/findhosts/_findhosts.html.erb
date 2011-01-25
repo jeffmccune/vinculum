@@ -16,7 +16,7 @@
 <table class="findhost-results">
     <% @results.each do |result|%>
         <tr class="<%= cycle("odd", "even") %>">
-            <td><%= link_to_remote result, {:url=>{:controller => :puppet, :action => :get_inventory , :fqdn => result}}, :class => "button fg-button ui-state-default ui-corner-all" %></td>
+            <td><%= link_to_remote result, {:url=>{:controller => :puppet, :action => :get_inventory , :fqdn => result}}, {:class => "button fg-button ui-state-default ui-corner-all", :onclick => "spin();"} %></td>
         </tr>
     <% end %>
 </table>

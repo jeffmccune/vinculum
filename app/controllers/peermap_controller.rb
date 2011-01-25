@@ -20,6 +20,7 @@ class PeermapController < ApplicationController
 
        client.disconnect
        render :update do |page|
+           page << "spin();"
            page.replace_html("popupContent", :partial => "peermap")
            page << "openPopup('popupWindow');"
        end

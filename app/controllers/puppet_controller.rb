@@ -4,8 +4,8 @@ class PuppetController < ApplicationController
     include MCollective::RPC
 
     layout 'layout'
-
     def index
+
         if params[:position]
             @position = params[:position]
         else
@@ -52,6 +52,7 @@ class PuppetController < ApplicationController
         respond_to do |format|
             format.js{
                 render :update do |page|
+                   page << "spin();"
                    page.replace_html("popupContent", :partial => "inventory")
                    page << "openPopup('popupWindow');"
                 end
@@ -67,6 +68,7 @@ class PuppetController < ApplicationController
         respond_to do |format|
             format.js{
                 render :update do |page|
+                    page << "spin();"
                     page.replace_html("popupContent", :partial => "status")
                     page << "openPopup('popupWindow');"
                 end
@@ -82,6 +84,7 @@ class PuppetController < ApplicationController
         respond_to do |format|
             format.js{
                 render :update do |page|
+                    page << "spin();"
                     page.replace_html("popupContent", :partial => "enable")
                     page << "openPopup('popupWindow');"
                 end
@@ -97,11 +100,11 @@ class PuppetController < ApplicationController
         respond_to do |format|
             format.js{
                 render :update do |page|
+                    page << "spin()"
                     page.replace_html("popupContent", :partial => "disable")
                     page << "openPopup('popupWindow');"
                 end
             }
         end
     end
-
 end

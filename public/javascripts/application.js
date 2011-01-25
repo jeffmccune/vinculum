@@ -1,5 +1,4 @@
-var popup = 0; //Is popup open or closed?
-
+var popup = 0;
 //jQuery and prototype are behaving like children. Fix this in some way at some stage so you can use document.ready
 function doReady(){
     jQuery(document).keypress(function(e){
@@ -8,7 +7,6 @@ function doReady(){
         }
     });
 }
-
 function centerPopup(){
 //Center popup in middle of window relative to window size
     var windowWidth = document.documentElement.clientWidth;
@@ -22,23 +20,17 @@ function centerPopup(){
         "right" : windowWidth /2 - popupWidth /2
     }
     );
-	
 }
-
 function openPopup(){
-//Open popup
 	if(popup == 0){
         centerPopup();
 		jQuery(".popup").fadeIn("slow");
 		popup = 1;
 	}
 }
-
 function closePopup(){
-//Close popup
 	if(popup == 1){
 		jQuery(".popup").fadeOut("slow");
 		popup = 0;
 	}
-	
 }

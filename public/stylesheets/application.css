@@ -51,13 +51,6 @@
 	display:block;
 }
 
-#contentfield{
-	position:absolute;
-	left:15%;
-	top:15%;
-	width:85%;
-	height:85%;
-}
 .action-button{
 	height:3em;
 	width:10em;
@@ -149,4 +142,10 @@
 .cached-warning{
 	font-size:0.5em;
 	color:red;
+}
+#spinner{
+	position:fixed;
+	left:49%;
+	top:49%;
+	z-index:1;
 }

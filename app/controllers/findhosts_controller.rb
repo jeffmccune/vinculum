@@ -4,6 +4,7 @@ class FindhostsController < ApplicationController
 
     def get_findhosts
         render :update do |page|
+            page << "spin();"
             page.replace_html("inputContent", :partial => "input")
             page << "openPopup('inputWindow')" 
         end
@@ -45,6 +46,7 @@ class FindhostsController < ApplicationController
 
         render :update do |page|
             page.replace_html("popupContent", :partial => "findhosts")
+            page << "spin();"
             page << "closePopup()"
             page << "openPopup('popupWindow')"
         end

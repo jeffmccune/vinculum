@@ -1,6 +1,7 @@
 module PuppetHelper
     require 'mongo'
     require 'pp'
+    require 'yaml'
 
     def get_plugins
         plugins = Dir.glob("vendor/plugins/vinculum_[!action]**")
@@ -10,10 +11,7 @@ module PuppetHelper
     end
 
     def get_actions
-        actions = Dir.glob("vendor/plugins/vinculum_action**")
-        results = []
-        actions.each {|action| results << action.gsub(/.*vinculum_action_/, "")}
-        return results
+        return YAML::load(File.open("config/actions.yaml"))
     end
 
     def get_facts(fqdn)

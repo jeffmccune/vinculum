@@ -1,3 +1,8 @@
+#opaque{
+	position:absolute;
+	height:100%;
+	width:100%;
+}
 .popup{
 	display:none;
 	position:absolute;
@@ -53,6 +58,11 @@
 
 .action-button{
 	height:3em;
+	width:11em;
+	font-size:0.75em;
+}
+.plugin-button{
+	height:3em;
 	width:10em;
 	font-size:1em;
 }
@@ -99,6 +109,15 @@
 	left:0%;
 	background-color:#F2F2F2;
 	color:#004276;
+}
+.exception-content{
+	font-size:0.5em;
+}
+.exception-header{
+	top:0%;
+	left:0%;
+	background-color:#F2F2F2;
+	color:red;
 }
 .ui-widget-header{
 	background:0;
@@ -148,4 +167,14 @@
 	left:49%;
 	top:49%;
 	z-index:1;
+}
+
+.menu-button{
+	width:13.3334em;
+	height:2em;
+}
+.menu-label{
+	font-size:1.5em;
+	width:10em;
+	height:1.5em;
 }

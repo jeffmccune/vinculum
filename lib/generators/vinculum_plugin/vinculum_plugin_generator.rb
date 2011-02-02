@@ -56,8 +56,4 @@ class VinculumPluginGenerator < Rails::Generator::NamedBase
             end
         end
     end
-
 end
-
-	
-	

@@ -1,18 +1,75 @@
+require 'yaml'
+
 namespace :<%=action_name.to_sym %> do
     desc "Sync action"
-    task :sync do
-       system "rsync -ruv vendor/plugins/vinculum_action_<%= action_name %>/lib/app/views/* app/views/<%=action_name%>/" 
-       system "rsync -ruv vendor/plugins/vinculum_action_<%= action_name %>/lib/app/controllers/* app/controllers" 
-       system "rsync -ruv vendor/plugins/vinculum_action_<%= action_name %>/lib/public/javascript/* public/javascripts/" 
-       system "rsync -ruv vendor/plugins/vinculum_action_<%= action_name %>/lib/public/stylesheets/* public/stylesheets/" 
+    task :add, :group do |task, args|
+        if args[:group].nil?
+            puts "Usage - rake <%=action_name %>:add[subgroupname]"
+            exit
+        end
+        config = YAML::load(File.open("#{RAILS_ROOT}/config/actions.yaml"))
+        
+        if config.keys.include?(args[:group])
+            if config[args[:group]] == nil
+                config[args[:group]] = []
+            end
+            config[args[:group]] << "<%= action_name %>"
+            File.open("#{RAILS_ROOT}/config/actions.yaml", 'w') { |f| YAML.dump(config, f)}
+        else
+            if config[args[:group]] == nil
+                config[args[:group]] = []
+            end
+            config[args[:group]] = "<%= action_name %>"
+            File.open("#{RAILS_ROOT}/config/actions.yaml", 'w') { |f| YAML.dump(config, f)}
+        end
+
+        system "rsync -ruv vendor/plugins/vinculum_action_<%= action_name %>/lib/app/views/* app/views/<%=action_name%>/ >> /dev/null" 
+        res = $?
+        system "rsync -ruv vendor/plugins/vinculum_action_<%= action_name %>/lib/app/controllers/* app/controllers >> /dev/null" 
+        res = $?
+        system "rsync -ruv vendor/plugins/vinculum_action_<%= action_name %>/lib/public/javascript/* public/javascripts/ >> /dev/null" 
+        res = $?
+        system "rsync -ruv vendor/plugins/vinculum_action_<%= action_name %>/lib/public/stylesheets/* public/stylesheets >> /dev/null"
+        res = $?
+        unless res == 0
+            puts "Vinculum could not add the action - <%= action_name%> to #{args[:group]}. One or more files could not be created."
+            exit
+        end
+
+        puts "Vinculum has added the action - <%= action_name%> to #{args[:group]}. Please refresh your browser."
+        puts "If you have altered action - <%= action_name%>'s controller you also need to restart your webserver."
+
     end
     
     desc "Delete action"
-    task :remove do
-        system "rm -rf app/views/actions/<%= action_name%>"
-        system "rm app/controllers/<%= action_name%>_controller.rb"
-        system "rm public/javascripts/<%= action_name %>.js"
-        system "rm public/stylesheets/<%= action_name %>.css"
+    task :remove , :group do |task, args|
+        if args[:group].nil?
+            puts "Usage - rake <%=action_name %>remove[subgroupname]"
+            exit
+        end
+        config = YAML::load(File.open("#{RAILS_ROOT}/config/actions.yaml"))
+        if config.keys.include?(args[:group])
+            config[args[:group]] == nil
+                config[args[:group]].delete("<%= action_name %>")
+                File.open("#{RAILS_ROOT}/config/actions.yaml", 'w') { |f| YAML.dump(config, f)}
+            if 
+                config.delete(args[:group])
+                File.open("#{RAILS_ROOT}/config/actions.yaml", 'w') { |f| YAML.dump(config, f)}
+            end
+        end
+        system "rm -rf app/views/<%= action_name%> >> /dev/null"
+        res = $?
+        system "rm app/controllers/<%= action_name%>_controller.rb >> /dev/null"
+        res = $?
+        system "rm public/javascripts/<%= action_name %>.js >> /dev/null"
+        res = $?
+        system "rm public/stylesheets/<%= action_name %>.css >> /dev/null"
+        res = $?
+        unless res == 0
+            puts "Vinculum could not remove the action - <%= action_name%> from #{args[:group]}. One or more files could not be deleted."
+            exit
+        end
+        puts "Vinculum has removed the action - <%= action_name%> from #{args[:group]}. Please refresh your browser."
     end
 
 

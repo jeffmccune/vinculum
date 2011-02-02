@@ -17,8 +17,13 @@
             <%= javascript_include_tag "#{plugin}.js"%>
             <%= stylesheet_link_tag "#{plugin}.css"%>
         <% end %>
+        <% get_actions.values.each do |action| %>
+            <% unless action[0] == nil %>
+                <%= javascript_include_tag "#{action}.js"%>
+                <%= stylesheet_link_tag "#{action}.css"%>
+            <% end %>
+        <% end %>
         <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-
         <title> 
             Vinculum 
         </title>
@@ -35,20 +40,45 @@
         </style>
     </head>
     <body>
-        <div style="position:relative;width:1440px;height:900px;">
-        <div id="leftfield" style="position:absolute;left:0;top:14.5%;width:14.5%;height:75.5%;">
-            <% get_plugins.sort.each do |plugin| %>
-                <%= button_to_remote plugin.capitalize, {:url=>{:controller => plugin.capitalize, :action => "get_#{plugin}".to_sym}}, {:class=>"action-button fg-button ui-state-default ui-corner-right", :onclick => "spin();"}%>
+        <div id="outer-container" style="position:fixed;height:1009px;width:1920px;">
+            <div id="leftfield" style="position:absolute;left:0;top:14.5%;width:14.5%;height:75.5%;">
+                <% get_plugins.sort.each do |plugin| %>
+                    <%= button_to_remote plugin.camelize, {:url=>{:controller => plugin.capitalize, :action => "get_#{plugin}".to_sym}}, 
+                                                            {:class=>"plugin-button fg-button ui-state-default ui-corner-right left-button disable", 
+                                                            :onclick => "spin();"}%>
                 <br>
-            <% end %>
-        </div>
-        <div id="topfield" class="ui-widget" style="position:absolute;left:15%;top:1%;width:85%;height:14.5%">
-            <% get_actions.sort.each_with_index do |action, i| %>
-                <!-- Use index to overflow to next row at some stage--!>
-                <%= button_to_remote action.capitalize, {:url=>{:controller => action.capitalize, :action => "get_#{action}".to_sym}}, {:class=>"action-button fg-button ui-state-default ui-corner-right", :onclick => "spin();"}%>
+                <% end %>
+            </div>
 
+            <% actions = get_actions %>
+            <% a_list = [] %>
+            
+            <div id="topfield" class="ui-widget" style="position:absolute;left:25%;top:2%;width:50%;height:1.5em;padding:3px;background-color:#D8DCDF">
+                <% actions.keys.sort.each_with_index do |action,i| %>
+                    <% if i == 0 %>
+                        <button type="button" class="fg-button ui-state-default ui-corner-left menu-label disable" id="men-<%=action%>"> <%= action %> </button>
+                    <% elsif i == actions.keys.length - 1 %>
+                        <button type="button" class="fg-button ui-state-default ui-corner-right menu-label disable" id="men-<%=action%>"> <%= action %> </button>
+                    <% else %>
+                        <button type="button" class="fg-button ui-state-default menu-label disable" id="men-<%=action%>"> <%= action %> </button>
+                    <% end %>
+                <% end %>
+                
+            <% actions.keys.sort.each do |action |%>
+                <%unless actions[action].nil? %>
+                    <% a_list << "#men-#{action}" %>
+                        <div id="sub-<%= action %>" style="position:absolute;display:none;font-size:0.75em;width:13.3334em;">
+                            <%actions[action].each do |command| %>
+                            <%= button_to_remote command.camelize, {:url=>{:controller => command.capitalize, 
+                                                                    :action => "get_#{command}".to_sym}}, 
+                                                                    {:class=>"fg-button ui-state-default menu-button disable", 
+                                                                    :onclick => "spin();"}%><br>
+                        <% end %>
+                    </div>
+                <% end %>
             <% end %>
-        </div>
+            <%= javascript_tag "configureMenu('#{a_list.join(", ")}')" %>
+            </div>
         <div id="contentfield" class="ui-widget ui-widget-content" style="position:absolute;left:15%;top:15%;width:85%;height:85%;min-height:85%;min-width:2000px%">
             <%= yield %>
         </div>

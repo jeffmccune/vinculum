@@ -1,0 +1,42 @@
+<a class="popupClose">x</a>
+<h1 class="popupHeader">Update Puppetmaster results</h1>
+
+<% @results.each do |puppetmaster| %>
+    <h1 class="popupHeader"> <%= puppetmaster.results[:sender] %></h1>
+    <% if puppetmaster.results[:statuscode] == 0 %>
+        <div style="color:green;font-size:0.4em"> Puppetmaster successfully updated</div>
+    <% else %>
+        <div style="color:red;font-size:0.4em">Puppetmaster could not be updated.</div>
+    <% end %>
+    <table class="puppetmaster-table">
+        <tr>
+            <td bgcolor="#F2F2F2">Url</td>
+            <td><%= puppetmaster.results[:data][:url] %></td>
+        </tr>
+        <tr>
+            <td bgcolor="#F2F2F2">Svnout</td>
+            <td><%= puppetmaster.results[:data][:svnout]%></td>
+        </tr>
+        <tr>
+            <td bgcolor="#F2F2F2">Author</td>
+            <td><%= puppetmaster.results[:data][:author]%></td>
+        </tr>
+        <tr>
+            <td bgcolor="#F2F2F2">Revision</td>
+            <td><%=puppetmaster.results[:data][:revision]%></td>
+        </tr>
+        <tr>
+            <td bgcolor="#F2F2F2">Path</td>
+            <td><%=puppetmaster.results[:data][:path]%></td>
+        </tr>
+        <tr>
+            <td bgcolor="#F2F2F2">Date</td>
+            <td><%=puppetmaster.results[:data][:date]%></td>
+        </tr>
+        <tr>
+            <td bgcolor="#F2F2F2">Root</td>
+            <td><%=puppetmaster.results[:data][:root]%></td>
+        </tr>
+
+    </table>
+<% end %>

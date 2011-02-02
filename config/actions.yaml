@@ -1,0 +1,9 @@
+--- 
+Puppet: 
+- update_puppetmaster
+RandomTasks: 
+- pokeme
+Exim: []
+
+Mcollective: []
+

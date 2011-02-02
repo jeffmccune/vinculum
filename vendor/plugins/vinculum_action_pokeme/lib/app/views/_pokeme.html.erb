@@ -1,0 +1,11 @@
+<a class="popupClose">x</a>
+<h1 class="popupHeader"> Reponse from message sent to <%= @recipient %>.</h1>
+<% @results.each do |response| %>
+    <h1 class="popupHeader"> <%= response.results[:sender] %> </h1>
+    <table class="pokeme-table">
+        <tr>
+            <td bgcolor="#F2F2F2">Reponse</td>
+            <td><%= response.results[:data][:msg]%></td>
+        </tr>
+    </table>
+<% end %>

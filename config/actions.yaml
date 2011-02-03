@@ -4,6 +4,4 @@ Puppet:
 RandomTasks: 
 - pokeme
 Exim: []
-
-Mcollective: []
-
+MCollective: []

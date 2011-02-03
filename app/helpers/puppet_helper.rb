@@ -33,4 +33,8 @@ module PuppetHelper
          end
          return results, db["nodes"].find().count
      end
+    
+    def facts_to_show
+        return YAML::load(File.open("#{RAILS_ROOT}/config/facts.yaml"))
+    end
 end

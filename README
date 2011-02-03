@@ -1,9 +1,10 @@
 Vinculum
-Version 0.1
+Version 0.1.1
 
 Rails based command and control framework for the Marionette Collective
 
 #Changelog
+- 0.1.1 The facts being displayed on the landing page are now configurable by editing config/facts.yaml
 - 0.1   Major redesign of actions. Actions now generate like plugins but can be added and removed from 
         submenu's via rake tasks. Fixed a range of UI bugs and inconsistencies.
 - 0.02  Added concept of action plugin with generator. 2nd Round of minor visual bugfixes.

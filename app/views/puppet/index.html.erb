@@ -1,5 +1,6 @@
 <div id=results>
-<%= javascript_tag "closePopup();" %>
+ <%= javascript_tag "closePopup();" %>
+<%fact_list = facts_to_show["Facts"] %>
     
 <% @position = @position.to_i %>
 
@@ -10,8 +11,9 @@
             <td></td>
             <th> Fqdn</th>
             <th> Last Check</th>
-            <th> Location</th>
-            <th> Country</th>
+            <% fact_list.sort.each do |fact| %>
+                <th> <%= fact.capitalize %></th>
+            <% end %>
             <th colspan=4> Actions</th>
         </tr>
     </thead>
@@ -23,8 +25,9 @@
             <td> <%= i + ((@position -1) * 15) + 1%></td>
             <td> <%= node["fqdn"] %> </td>
             <td> <%= Time.at(node["lastseen"]) %></td>
-            <td> <%= node["facts"]["location"] %> </td>
-            <td> <%= node["facts"]["country"] %> </td>
+            <% fact_list.sort.each do |fact| %>
+                <td> <%= node["facts"][fact] %> </td>
+            <% end %>
             <td> <%= button_to_remote "Inventory", {:url=>{:action => :get_inventory, 
                                                    :fqdn => node["fqdn"]}}, 
                                                    {:class => "button fg-button ui-state-default ui-corner-all disable", 

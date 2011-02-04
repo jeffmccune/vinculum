@@ -67,7 +67,7 @@
             <% actions.keys.sort.each do |action |%>
                 <%unless actions[action].nil? %>
                     <% a_list << "#men-#{action}" %>
-                        <div id="sub-<%= action %>" style="position:absolute;display:none;font-size:0.75em;width:13.3334em;">
+                        <div id="sub-<%= action %>" class="submenu" style="position:absolute;display:none;font-size:0.75em;width:13.3334em;">
                             <%actions[action].each do |command| %>
                             <%= button_to_remote command.camelize, {:url=>{:controller => command.capitalize, 
                                                                     :action => "get_#{command}".to_sym}}, 

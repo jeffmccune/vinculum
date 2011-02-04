@@ -118,6 +118,7 @@ function openPopup(popup){
 function closePopup(){
 	jQuery(".disable").attr("disabled", "");
 	if(popupStatus == 1){
+        jQuery(".submenu").hide()
 		jQuery("#opaque").css("opacity","1");
 		jQuery("#popupWindow").fadeOut("slow");
 		jQuery("#inputWindow").fadeOut("slow");

@@ -55,7 +55,7 @@
                 <%else%>
                     <button type="button" id="hideme" class="fg-button ui-state-default ui-corner-all">>></button>
             <% end %>
-            <%# ((size / 15) + 1 unless (size % 15) == 0).times do |i|%> <!-- Legacy pagination. --!>
+            <%# ((size / 15) + 1 unless (size % 15) == 0).times do |i|%>
               <%#= button_to_remote "#{i+1} " , {:url => {:action => :index , :position => i + 1}, :update => {:success => "results"}},
                     {:id => "#{i+1}", :class=> "fg-button ui-state-default ui-corner-all"} %> 
                     <%# end %>

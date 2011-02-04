@@ -1,0 +1,7 @@
+#Edit facts to alter the facts displayed on the main page
+#Entry must match your fact's name exactly
+Facts:           - country
+                 - location
+#MongoDB configuration options. Specify database and document name.
+Mongo_Database:   puppet
+Mongo_Document:   nodes

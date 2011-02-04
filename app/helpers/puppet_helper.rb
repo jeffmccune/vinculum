@@ -16,8 +16,9 @@ module PuppetHelper
 
     def get_facts(fqdn)
         results = []
-        db = Mongo::Connection.new.db("puppet")
-        db["nodes"].find({"fqdn" => fqdn}, :fields => ["facts"]).each do |node|
+        config = YAML::load(File.open("config/vinculum.yaml"))
+        db = Mongo::Connection.new.db(config["Mongo_Database"])
+        db[config["Mongo_Document"]].find({"fqdn" => fqdn}, :fields => ["facts"]).each do |node|
             node["facts"].each do |fact, value|
                 results << "#{fact} - #{value}"
             end
@@ -26,15 +27,16 @@ module PuppetHelper
     end
 
     def get_node_list(position)
-         results = []
-         db = Mongo::Connection.new.db("puppet")
-         db["nodes"].find({}, {:sort => "fqdn", :skip => ((position -1) * 15), :limit => 15}).each do |node|
-             results << node
-         end
-         return results, db["nodes"].find().count
+        config = YAML::load(File.open("config/vinculum.yaml"))
+        results = []
+        db = Mongo::Connection.new.db(config["Mongo_Database"])
+        db[config["Mongo_Document"]].find({}, {:sort => "fqdn", :skip => ((position -1) * 15), :limit => 15}).each do |node|
+            results << node
+        end
+        return results, db["nodes"].find().count
      end
     
     def facts_to_show
-        return YAML::load(File.open("#{RAILS_ROOT}/config/facts.yaml"))
+       return YAML::load(File.open("#{RAILS_ROOT}/config/vinculum.yaml"))
     end
 end

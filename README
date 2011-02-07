@@ -4,6 +4,7 @@ Version 0.2
 Rails based command and control framework for the Marionette Collective
 
 #Changelog
+- 0.2.2 Removed some developement files and added .gitignore
 - 0.2.1 Fixed a bug where an action submenu stayed open after closing the results page.
 - 0.2   Improved pagination for larger collectives. MongoDB and displayed facts are now editable in
         config/vinculum.yaml. config/facts.yaml has been removed.
